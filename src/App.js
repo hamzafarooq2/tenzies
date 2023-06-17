@@ -1,6 +1,5 @@
 import React from "react";
 import "./App.css";
-import WindowTracker from "./WindowTracker";
 import Dice from "./Dice";
 import { nanoid } from "nanoid";
 // import Confetti from "react-confetti"
@@ -41,26 +40,6 @@ function App() {
     setShow((prevShow) => !prevShow);
   }
 
-  //----------------------------
-  const [starWarsData, setStarWarsData] = React.useState({});
-  const [count, setCount] = React.useState(1);
-
-  console.log("Component rendered");
-
-  //side effects
-  React.useEffect(
-    function () {
-      console.log("Effect ran");
-
-      // side effects
-      fetch(`https://swapi.dev/api/people/${count}`)
-        .then((res) => res.json())
-        .then((data) => setStarWarsData(data));
-    },
-    [count]
-  ); // the dependency array limit the no of time , that this useEffect will run
-  //--------------------------
-
   function holdDice(id) {
     setDice((oldDice) =>
       oldDice.map((dice) => {
@@ -84,9 +63,9 @@ function App() {
           return dice.isHeld ? dice : generateNewDice();
         })
       );
-    } else{
-      setTenzies(false)
-      setDice(allNewDice())
+    } else {
+      setTenzies(false);
+      setDice(allNewDice());
     }
   }
 
@@ -101,17 +80,6 @@ function App() {
           </button>
         </main>
       </div>
-      ----------------------------------
-      <pre>{JSON.stringify(starWarsData, null, 2)}</pre>
-      <h2>The count is {count}</h2>
-      <button onClick={() => setCount((prevCount) => prevCount + 1)}>
-        Add
-      </button>
-      <br /> <br />
-      -----------------------
-      <br /> <br />
-      <button onClick={onToggle}>Toggle Windows Tracker</button>
-      {show && <WindowTracker />}
     </div>
   );
 }
